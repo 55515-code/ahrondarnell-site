@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ARTIST } from '../site.config';
+---
+
+<BaseLayout
+  title="Art"
+  description="Electrac Angel — digital art by Ahron Darnell. Electric, transformative, boundary-pushing."
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">alias: electrac-angel</p>
+    <h1>Art</h1>
+    <p class="lead">
+      {ARTIST.essence} Under the alias <strong>{ARTIST.alias}</strong> — also
+      known as {ARTIST.aliases.join(', ')}.
+    </p>
+    <p>
+      The same mind that makes compliance boring-for-the-right-reasons also
+      makes digital art. Creativity and control are not opposites — they're the
+      same discipline applied to different surfaces.
+    </p>
+  </section>
+
+  <section class="section container section--tight">
+    <div class="grid grid--3">
+      <div class="term">
+        <div class="term__bar">
+          <span class="term__title">featured // electric-dreams</span>
+        </div>
+        <div class="term__body" style="min-height: 12rem">
+          <p class="card__meta">series</p>
+          <p>Electric, dreamlike pieces exploring technology and humanity.</p>
+          <p class="prompt" style="margin-bottom: 0">$ works: coming soon</p>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term__bar">
+          <span class="term__title">featured // clown-chronicles</span>
+        </div>
+        <div class="term__body" style="min-height: 12rem">
+          <p class="card__meta">series</p>
+          <p>Chaos and order, humor and discomfort, in equal measure.</p>
+          <p class="prompt" style="margin-bottom: 0">$ works: coming soon</p>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term__bar">
+          <span class="term__title">featured // bear-dove-studies</span>
+        </div>
+        <div class="term__body" style="min-height: 12rem">
+          <p class="card__meta">series</p>
+          <p>Softness and strength — studies in contrast.</p>
+          <p class="prompt" style="margin-bottom: 0">$ works: coming soon</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container section--tight">
+    <div class="card">
+      <h2 style="margin-top: 0">Find the art</h2>
+      <p>
+        Portfolio pieces live on DeviantArt under ClownBlock. Commission
+        availability and current series are tracked there.
+      </p>
+      <div class="hero__actions">
+        <a class="btn" href="https://www.deviantart.com/clownblock" rel="noopener" target="_blank">
+          deviantart: clownblock ↗
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

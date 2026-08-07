@@ -1,0 +1,58 @@
+---
+/**
+ * Terminal typing animation — progressive enhancement.
+ * The full line is rendered as static HTML (crawler-visible).
+ * JavaScript only animates on top; with JS disabled the full line shows.
+ */
+interface Props {
+  line: string;
+  prompt?: boolean;
+}
+
+const { line, prompt = true } = Astro.props;
+---
+
+<span class="typed" data-type-line={line} aria-label={line}>
+  <span class="visually-hidden">{line}</span>
+  {prompt && <span class="prompt" aria-hidden="true">$ </span>}
+  <span class="typed__text" data-typed-text aria-hidden="true">{line}</span>
+  <span class="cursor" aria-hidden="true"></span>
+</span>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-type-line]');
+  if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const full = el.dataset.typeLine || '';
+    const target = el.querySelector<HTMLElement>('[data-typed-text]');
+    if (target) {
+      const cursor = el.querySelector<HTMLElement>('.cursor');
+      target.textContent = '';
+      let i = 0;
+      const speed = 38;
+      const tick = () => {
+        if (i <= full.length) {
+          target.textContent = full.slice(0, i);
+          i++;
+          setTimeout(tick, speed);
+        } else if (cursor) {
+          cursor.style.display = 'inline-block';
+        }
+      };
+      tick();
+    }
+  }
+</script>
+
+<style>
+  .typed {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .typed__text {
+    color: var(--text-muted);
+    white-space: pre-wrap;
+  }
+</style>

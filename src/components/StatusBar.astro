@@ -1,0 +1,23 @@
+---
+/**
+ * Terminal-style status bar: system status messaging that builds instant trust
+ * and reinforces the hacker brand.
+ */
+const uptime = new Date();
+---
+
+<aside class="statusbar" role="note" aria-label="System status">
+  <span class="statusbar__item">
+    <span class="statusbar__pulse" aria-hidden="true"></span>
+    <span>SYSTEM_STATUS: <strong>ONLINE</strong></span>
+  </span>
+  <span class="statusbar__item">
+    <span>UPTIME: {uptime.getFullYear()} &amp; counting</span>
+  </span>
+  <span class="statusbar__item">
+    <span>NODE: WILLIAMSVILLE, NY</span>
+  </span>
+  <span class="statusbar__item">
+    <span>MODE: <strong>HELP-SMALL-BUSINESS</strong></span>
+  </span>
+</aside>

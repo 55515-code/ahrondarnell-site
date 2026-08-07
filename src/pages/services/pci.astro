@@ -1,0 +1,35 @@
+---
+import ServicePage from '../../components/ServicePage.astro';
+---
+
+<ServicePage
+  slug="pci"
+  title="PCI DSS"
+  subtitle="PCI DSS made simple — know your SAQ, shrink your scope"
+  intro="PCI DSS applies to any business that accepts card payments — there's no revenue threshold and no exemption. The good news: for most small businesses it's a 30-60 minute annual questionnaire, not a project. The catch: only if your setup keeps card data out of your environment. I help you get there."
+  points={[
+    'SAQ determination: which questionnaire actually applies to you',
+    'Scope reduction: use hosted/P2PE payment processing and don\u2019t store card numbers',
+    'Network segmentation and firewall guidance',
+    'Annual self-assessment done right — no hidden landmines',
+    'Fair-fee review: what your processor charges vs. what PCI should cost',
+  ]}
+  faqs={[
+    {
+      q: 'Does PCI DSS really apply to small businesses?',
+      a: 'Yes. PCI DSS applies to any business that accepts, stores, processes, or transmits cardholder data — no revenue threshold and no exemption. Most small businesses are Level 4 merchants, which means validation is a Self-Assessment Questionnaire (SAQ) filed annually.',
+    },
+    {
+      q: 'Which SAQ do I need?',
+      a: 'It depends on how you accept payments. If you outsource all card processing (for example a hosted payment page), you likely qualify for the shortest SAQ. If your systems store card data, you face a much longer questionnaire. Scope reduction is the single biggest lever — don\u2019t store card numbers.',
+    },
+    {
+      q: 'How long does PCI compliance take?',
+      a: 'For a small business with the right setup, the annual SAQ takes roughly 30-60 minutes plus a quarterly scan if required by your SAQ. The upfront work is configuring your payment environment so card data never touches your systems.',
+    },
+    {
+      q: 'Am I overpaying for PCI?',
+      a: 'Many processors bundle a PCI fee into your statement that is far above the actual cost of compliance — which can be $0-30 per year for a small merchant. If you\u2019re paying $200+/year for a "PCI fee," it\u2019s worth a second look.',
+    },
+  ]}
+/>

@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT, SITE } from '../site.config';
+
+const endpoint = CONTACT.formEndpoint;
+---
+
+<BaseLayout
+  title="Contact"
+  description={`Contact ${SITE.name} — free 30-minute call about compliance, security, and platform operations.`}
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">ssh ahron@darnell</p>
+    <h1>Start a conversation</h1>
+    <p class="lead">
+      Free 30-minute call. No jargon, no pressure — just a straight answer
+      about which compliance and security steps actually matter for your
+      business.
+    </p>
+  </section>
+
+  <section class="section container section--tight">
+    <div class="grid grid--2">
+      <div>
+        <h2>Contact form</h2>
+        <form id="contact-form" class="form" data-endpoint={endpoint}>
+          <div class="form__field">
+            <label for="name">name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required />
+          </div>
+          <div class="form__field">
+            <label for="email">email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="form__field">
+            <label for="company">company (optional)</label>
+            <input type="text" id="company" name="company" autocomplete="organization" />
+          </div>
+          <div class="form__field">
+            <label for="message">what's on your mind?</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <p class="form__privacy">
+            No tracking, no newsletter checkbox tricks. This message is used
+            only to respond to you.
+          </p>
+          <button type="submit" class="btn btn--primary">send message</button>
+          <p id="form-status" class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div>
+        <h2>Direct</h2>
+        <div class="card" style="margin-bottom: var(--sp-6)">
+          <div class="card__meta">email</div>
+          <p style="margin-bottom: 0">
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          </p>
+        </div>
+        <div class="card" style="margin-bottom: var(--sp-6)">
+          <div class="card__meta">linkedin</div>
+          <p style="margin-bottom: 0">
+            <a href={CONTACT.linkedin} rel="me noopener" target="_blank">
+              linkedin.com/in/centralsupport ↗
+            </a>
+          </p>
+        </div>
+        <div class="card" style="margin-bottom: var(--sp-6)">
+          <div class="card__meta">location</div>
+          <p style="margin-bottom: 0">{CONTACT.location} · remote-friendly</p>
+        </div>
+        <div class="card">
+          <div class="card__meta">availability</div>
+          <p style="margin-bottom: 0">{CONTACT.hours}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status') as HTMLElement | null;
+  const endpoint = form?.dataset.endpoint || '';
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form || !status) return;
+
+    const data = new FormData(form);
+    const subject = `Website contact from ${data.get('name') || 'someone'}`;
+    const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || 'n/a'}\n\n${data.get('message')}`;
+
+    if (endpoint) {
+      // Configured form backend (Formspree/Basin/Netlify)
+      fetch(endpoint, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+        .then((r) => {
+          if (r.ok) {
+            status.textContent = 'Message sent. I\u2019ll get back to you within 1-2 business days.';
+            form.reset();
+          } else {
+            status.textContent = 'Something went wrong. Please email me directly instead.';
+          }
+        })
+        .catch(() => {
+          status.textContent = 'Network error. Please email me directly instead.';
+        });
+    } else {
+      // Fallback: open the visitor's mail client with the message pre-filled
+      const mailto = `mailto:${'hello@ahrondarnell.com'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      status.textContent = 'Opening your mail app... if nothing happens, email me directly.';
+    }
+  });
+</script>
+
+<style>
+  .form__field {
+    margin-bottom: var(--sp-4);
+  }
+
+  .form label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--sp-2);
+    font-weight: 700;
+  }
+
+  .form input,
+  .form textarea {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.75rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .form input:focus,
+  .form textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 1px var(--green-glow-soft);
+  }
+
+  .form__privacy {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: var(--sp-4);
+  }
+
+  .form__status {
+    margin-top: var(--sp-4);
+    font-size: 0.85rem;
+    color: var(--green-bright);
+    min-height: 1.2em;
+  }
+</style>

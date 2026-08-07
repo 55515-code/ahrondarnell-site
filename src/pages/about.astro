@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PROFILE } from '../data/profile';
+---
+
+<BaseLayout
+  title="About"
+  description="About Ahron Darnell — 20+ years of IT, security, and compliance experience across healthcare, banking, MSP, and enterprise environments."
+>
+  <section class="section container">
+    <p class="eyebrow">whoami</p>
+    <h1>About</h1>
+    <p class="lead">{PROFILE.about}</p>
+    <p>
+      Based in the {PROFILE.location}. Remote-friendly. I've worked in
+      healthcare (DaVita, Hospice Buffalo), banking (M&T), MSPs (CETech,
+      Crossfuze), and enterprise — and at each stop the mission was the same:
+      make the systems calmer and the people more confident.
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2>Experience</h2>
+    {
+      PROFILE.experience.map((job) => (
+        <article class="card" style="margin-bottom: var(--sp-6)">
+          <div class="card__meta">
+            {job.confidence === 'low' ? 'earlier roles' : job.confidence}
+          </div>
+          <h3 style="margin-top: 0">{job.title}</h3>
+          <p class="card__meta" style="text-transform: none; letter-spacing: 0">
+            {job.employer}
+          </p>
+          <ul>
+            {job.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="section container">
+    <h2>Projects</h2>
+    <div class="grid grid--2">
+      {
+        PROFILE.projects.map((p) => (
+          <div class="card card--accent">
+            <div class="card__meta">{p.dates}</div>
+            <div class="card__title">{p.name}</div>
+            <p style="margin-bottom: 0">{p.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Certifications & training</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Credential</th>
+          <th>Issuer</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          PROFILE.certifications.map((c) => (
+            <tr>
+              <td>{c.name}{c.note ? ` (${c.note})` : ''}</td>
+              <td>{c.issuer}</td>
+              <td>{c.issued}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section container">
+    <h2>What people say</h2>
+    <div class="grid grid--2">
+      {
+        PROFILE.recommendations.map((r) => (
+          <blockquote class="card">
+            <p style="margin-bottom: var(--sp-4)">"{r.summary}"</p>
+            <footer class="card__meta" style="margin-bottom: 0">— {r.recommender}</footer>
+          </blockquote>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Toolkit</h2>
+    {
+      Object.entries(PROFILE.skills).map(([group, skills]) => (
+        <div style="margin-bottom: var(--sp-6)">
+          <h3>{group}</h3>
+          <div class="chips">
+            {skills.map((s) => (
+              <span class="chip">{s}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

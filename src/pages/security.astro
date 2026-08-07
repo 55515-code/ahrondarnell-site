@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Security & Trust"
+  description="How this site is secured: security headers, privacy-first analytics, no tracking, and an honest compliance posture."
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">cat /etc/trust</p>
+    <h1>Security & trust</h1>
+    <p class="lead">
+      Security is a practice, not a badge. Here is exactly how this site is
+      built and protected — and the honest state of my own compliance posture.
+    </p>
+  </section>
+
+  <section class="section container section--tight">
+    <div class="term">
+      <div class="term__bar">
+        <div class="term__dots">
+          <span class="term__dot term__dot--red"></span>
+          <span class="term__dot term__dot--yellow"></span>
+          <span class="term__dot term__dot--green"></span>
+        </div>
+        <span class="term__title">~/security/posture.sh</span>
+      </div>
+      <div class="term__body">
+        <pre><code><span class="prompt">$</span> ./posture.sh --show-honest-state
+
+[OK]   HTTPS enforced ..................... YES (HSTS preload-eligible)
+[OK]   Security headers ................... YES (CSP, X-Frame-Options, etc.)
+[OK]   Email hardening .................... IN PROGRESS (SPF/DKIM/DMARC)
+[OK]   Privacy-first analytics ............ YES (no cookies, no trackers)
+[OK]   Static site, no app attack surface . YES
+[INFO] SOC 2 Type II — supported as part of
+       Concepts2Code engagement (2025) ...... SEE BELOW
+[INFO] Independent SOC 2 / ISO 27001 audit
+       of my own practice .................. PLANNED</code></pre>
+        <p>
+          Honesty note: I have <em>supported</em> SOC 2 Type I and Type II
+          compliance programs for clients, and I list those projects on my
+          LinkedIn. I have not yet had my own solo practice independently
+          audited — that work is planned as revenue supports it. I'll update
+          this page the day that changes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container section--tight">
+    <h2>How this site is secured</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Control</th>
+          <th>Status</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>HTTPS + HSTS</td>
+          <td>enforced</td>
+          <td>max-age 1 year, preload-eligible, includeSubDomains</td>
+        </tr>
+        <tr>
+          <td>Content-Security-Policy</td>
+          <td>enforced</td>
+          <td>self-only, inline styles/scripts allowed, no external origins</td>
+        </tr>
+        <tr>
+          <td>Frame options</td>
+          <td>deny</td>
+          <td>frame-ancestors 'none' — no clickjacking surface</td>
+        </tr>
+        <tr>
+          <td>Analytics</td>
+          <td>none</td>
+          <td>no cookies, no trackers, no third-party scripts. Zero data collected.</td>
+        </tr>
+        <tr>
+          <td>Architecture</td>
+          <td>static</td>
+          <td>pre-rendered HTML on an edge CDN — minimal attack surface</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section container section--tight">
+    <h2>Data & privacy</h2>
+    <p>
+      This site sets <strong>no cookies</strong> and collects{" "}
+      <strong>no personal data</strong>. There is nothing to consent to and
+      nothing to sell. If you contact me, your message stays between us and is
+      used only to respond to you. That's the whole policy — in one paragraph.
+    </p>
+  </section>
+
+  <section class="section container section--tight">
+    <h2>Report an issue</h2>
+    <p>
+      Found something wrong on this site? A typo, a broken link, a security
+      issue — tell me directly.
+    </p>
+    <a class="btn" href="/contact">report an issue</a>
+  </section>
+</BaseLayout>

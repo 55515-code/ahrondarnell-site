@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicePage from '../../components/ServicePage.astro';
+---
+
+<ServicePage
+  slug="hipaa"
+  title="HIPAA"
+  subtitle="Practical HIPAA safeguards for small practices"
+  intro="HIPAA sounds like a monster, but for most small practices it's about a handful of practical safeguards: access controls, encryption, staff training, business associate agreements, and a plan for what happens if something goes wrong. I make it simple and keep it proportionate to your practice."
+  points={[
+    'Gap assessment: where you stand today, in plain English',
+    'Access controls and MFA that fit a small team',
+    'Encryption at rest and in transit — set and forget',
+    'Staff training that doesn\u2019t put people to sleep',
+    'Business Associate Agreement (BAA) review',
+    'Breach notification plan that\u2019s actually usable',
+  ]}
+  faqs={[
+    {
+      q: 'Does HIPAA apply to my small practice?',
+      a: 'HIPAA applies to any organization that handles protected health information (PHI) — including small practices, dental offices, therapy practices, and their business associates. If you store, transmit, or process health data, HIPAA likely applies to you.',
+    },
+    {
+      q: 'What are the most common HIPAA gaps in small practices?',
+      a: 'The most common gaps are: no written security policies, shared or weak passwords, unencrypted devices and email, no staff training records, and no Business Associate Agreements with vendors who touch PHI. All of these are fixable without a compliance department.',
+    },
+    {
+      q: 'Is HIPAA compliance a one-time project?',
+      a: 'No — HIPAA is ongoing. But once the safeguards are in place, ongoing compliance is mostly routine: periodic reviews, training refreshers, and keeping documentation current. Think of it like a car: the initial setup matters, but so does the maintenance schedule.',
+    },
+    {
+      q: 'What happens if we have a breach?',
+      a: 'You need to know who to notify and when. Covered entities must notify affected individuals without unreasonable delay and in most cases within 60 days, and HHS must be notified for larger breaches. A written incident plan means you don\u2019t figure this out under pressure.',
+    },
+  ]}
+/>

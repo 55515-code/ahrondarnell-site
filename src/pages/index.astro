@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalType from '../components/TerminalType.astro';
+import { SITE, SERVICES, CONTACT } from '../site.config';
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div>
+          <p class="eyebrow">IT · Security · Compliance · Platform Operations</p>
+          <h1>
+            Technology, made <span class="italic-green">calmer</span> for small
+            business.
+          </h1>
+          <p class="lead">
+            {SITE.description.split('. ')[0]}. 20+ years across healthcare,
+            banking, MSP, and enterprise environments — turned into plain-English
+            guidance for the businesses that keep local communities running.
+          </p>
+          <TerminalType
+            line="$ tail -f /var/log/business --follow --lines=all  # no panic, just process"
+          />
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="/contact">book a free 30-min call</a>
+            <a class="btn" href="/services">see services</a>
+          </div>
+        </div>
+
+        <div class="term" aria-hidden="true">
+          <div class="term__bar">
+            <div class="term__dots">
+              <span class="term__dot term__dot--red"></span>
+              <span class="term__dot term__dot--yellow"></span>
+              <span class="term__dot term__dot--green"></span>
+            </div>
+            <span class="term__title">~/compliance/quick-check.sh</span>
+          </div>
+          <div class="term__body">
+            <pre><code><span class="prompt">$</span> ./quick-check.sh --business=small
+[OK]   Know which rules apply to you ....... YES
+[OK]   Access controls in place ........... YES
+[OK]   Data encrypted (at rest + transit) . YES
+[OK]   Staff trained on the basics ........ YES
+[OK]   Incident plan written down ......... PARTIAL
+[!!]   Evidence documented for auditors .. NO
+
+<span class="prompt">$</span> echo "You are not alone in this."
+You are not alone in this.
+
+<span class="prompt">$</span> ./start-conversation.sh
+<span class="cursor"></span></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Where I help</h2>
+    <p class="lead">
+      Most small businesses only need <strong>one or two</strong> frameworks —
+      and they usually don't know which. That's where I come in.
+    </p>
+    <div class="grid grid--2" style="margin-top: var(--sp-8)">
+      {SERVICES.map((s) => (
+        <a href={s.path} class="card card--accent" style="color: inherit">
+          <div class="card__meta">service // {s.slug}</div>
+          <div class="card__title">{s.title}</div>
+          <p style="margin-bottom: 0">{s.summary}</p>
+          <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+            <span class="prompt">$</span> read more →
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>The fear, removed</h2>
+    <div class="grid grid--2">
+      <div class="card">
+        <div class="card__title">"Is my business even subject to this?"</div>
+        <p>
+          HIPAA, PCI DSS, SOC 2 — the acronyms pile up fast. Most businesses are
+          subject to at least one rule without realizing it. I'll tell you exactly
+          which frameworks apply to you, and which ones you can safely ignore.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card__title">"This feels like a full-time job."</div>
+        <p>
+          It doesn't have to be. Reasonable protection for the information you
+          already handle — not a 200-page compliance program. Simple policies,
+          quarterly training, and a partner who speaks plain English.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card__title">"What about AI? Everyone wants us to use it."</div>
+        <p>
+          AI is an opportunity — and a risk. The #1 small-business risk today is
+          unstructured AI adoption (shadow AI). I help you adopt AI tools safely:
+          clear policies, approved tool lists, and human review built in.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card__title">"I can't afford a Big 4 firm."</div>
+        <p>
+          You shouldn't have to. Direct access to one experienced professional —
+          founder to founder — at a fraction of the cost of a firm or a full-time
+          CISO.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="term">
+      <div class="term__bar">
+        <div class="term__dots">
+          <span class="term__dot term__dot--red"></span>
+          <span class="term__dot term__dot--yellow"></span>
+          <span class="term__dot term__dot--green"></span>
+        </div>
+        <span class="term__title">~/credentials</span>
+      </div>
+      <div class="term__body">
+        <pre><code><span class="prompt">$</span> cat credentials.txt
+
+20+ years  IT operations & support
+2          SOC 2 compliance projects (Type I & Type II)
+3          Regulated industries: healthcare · banking · MSP
+2          Public recommendations: patience & clarity under pressure
+1          "Heart of Hospice" award (2016)
+
+<span class="prompt">$</span> whoami
+Ahron Darnell — making technology calmer, clearer, and more reliable.</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="card">
+      <h2 style="margin-top: 0">Not sure where to start?</h2>
+      <p class="lead">
+        Book a free 30-minute call. No jargon, no pressure — just a straight
+        answer about which compliance and security steps actually matter for
+        your business.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/contact">start the conversation</a>
+        <a class="btn" href={CONTACT.linkedin} rel="me noopener" target="_blank">connect on linkedin</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SERVICES } from '../../site.config';
+---
+
+<BaseLayout
+  title="Services"
+  description="Compliance and security services for small businesses: SOC 2, HIPAA, PCI DSS, and secure AI adoption guidance."
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">ls ./services/</p>
+    <h1>Services</h1>
+    <p class="lead">
+      Small businesses don't need a compliance department. They need to know
+      which 1-2 frameworks apply, implement basic safeguards, and produce
+      evidence. That's the gap I close.
+    </p>
+  </section>
+
+  <section class="section container">
+    <div class="grid grid--2">
+      {SERVICES.map((s) => (
+        <a href={s.path} class="card card--accent" style="color: inherit">
+          <div class="card__meta">service // {s.slug}</div>
+          <div class="card__title">{s.title}</div>
+          <p style="margin-bottom: 0">{s.summary}</p>
+          <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+            <span class="prompt">$</span> read more →
+          </p>
+        </a>
+      ))}
+    </div>
+
+    <div class="card" style="margin-top: var(--sp-12)">
+      <h2 style="margin-top: 0">Not sure which framework applies?</h2>
+      <p>
+        Start with a free 30-minute call. I'll walk you through which rules
+        actually apply to your business — and which ones don't.
+      </p>
+      <a class="btn btn--primary" href="/contact">book the call</a>
+    </div>
+  </section>
+</BaseLayout>

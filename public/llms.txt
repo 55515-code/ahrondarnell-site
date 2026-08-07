@@ -1,0 +1,28 @@
+# Ahron Darnell
+
+> Ahron Darnell is an IT, security, and compliance professional with 20+ years of experience across healthcare, banking, MSP, and enterprise environments. He helps small businesses with SOC 2, PCI DSS, and HIPAA compliance, endpoint security, Microsoft 365 administration, and secure AI adoption — in plain English. He also creates digital art as Electrac Angel.
+
+## Services
+
+- [Services overview](https://ahrondarnell.com/services/): Compliance and security services for small businesses.
+- [SOC 2](https://ahrondarnell.com/services/soc2/): SOC 2 Type I and Type II readiness, controls, and evidence workflows for service providers.
+- [HIPAA](https://ahrondarnell.com/services/hipaa/): Practical HIPAA safeguards for small practices — access control, encryption, training, and BAAs.
+- [PCI DSS](https://ahrondarnell.com/services/pci/): PCI DSS made simple — know your SAQ, shrink your scope, stop overpaying.
+- [Secure AI Adoption](https://ahrondarnell.com/services/ai/): Adopt AI tools safely with clear policies, approved tool lists, and human review.
+
+## About
+
+- [About](https://ahrondarnell.com/about/): Background, experience across healthcare/banking/MSP/enterprise, certifications, and skills.
+- [Security & trust](https://ahrondarnell.com/security/): Honest security posture, privacy policy, and how this site is secured.
+
+## Art
+
+- [Art](https://ahrondarnell.com/art/): Digital art by Ahron Darnell under the alias Electrac Angel (ClownBlock on DeviantArt).
+
+## Contact
+
+- [Contact](https://ahrondarnell.com/contact/): Book a free 30-minute call.
+
+## Optional
+
+- [RSS feed](https://ahrondarnell.com/rss.xml): Site updates and articles.

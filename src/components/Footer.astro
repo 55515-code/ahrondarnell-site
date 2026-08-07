@@ -1,0 +1,50 @@
+---
+import { SITE, NAV, CONTACT } from '../site.config';
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <h4>ahron@darnell:~$</h4>
+        <p class="footer__blurb">
+          {SITE.tagline} 20+ years across healthcare, banking, MSP, and enterprise
+          environments. SOC 2, PCI DSS, and HIPAA guidance for small businesses.
+        </p>
+        <a class="btn" href="/contact">start a conversation</a>
+      </div>
+      <div>
+        <h4>// nav</h4>
+        <ul>
+          {NAV.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>// links</h4>
+        <ul>
+          <li>
+            <a href={CONTACT.linkedin} rel="me noopener" target="_blank">linkedin ↗</a>
+          </li>
+          <li>
+            <a href="/llms.txt">llms.txt</a>
+          </li>
+          <li>
+            <a href="/rss.xml">rss feed</a>
+          </li>
+          <li>
+            <a href="/sitemap-index.xml">sitemap</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {SITE.buildYear} {SITE.name}. All rights reserved.</span>
+      <span>No cookies. No trackers. No nonsense.</span>
+      <span>Built as a static site on the open web.</span>
+    </div>
+  </div>
+</footer>

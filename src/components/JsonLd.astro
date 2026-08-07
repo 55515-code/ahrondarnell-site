@@ -1,0 +1,67 @@
+---
+/**
+ * Injects a JSON-LD structured-data block (Organization + Person + WebSite graph).
+ * Site-wide schema with stable @id references.
+ */
+import { SITE, PERSON, CONTACT } from '../site.config';
+
+const siteUrl = SITE.url.replace(/\/$/, '');
+const orgId = `${siteUrl}/#organization`;
+const personId = `${siteUrl}/#person`;
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': orgId,
+      name: SITE.name,
+      url: siteUrl,
+      description: SITE.description,
+      foundingLocation: { '@type': 'Place', address: CONTACT.location },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Buffalo',
+        addressRegion: 'NY',
+        addressCountry: 'US',
+      },
+      employee: { '@id': personId },
+      knowsAbout: PERSON.knowsAbout,
+      sameAs: PERSON.sameAs,
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: PERSON.name,
+      givenName: PERSON.givenName,
+      familyName: PERSON.familyName,
+      jobTitle: PERSON.jobTitle,
+      url: siteUrl,
+      image: `${siteUrl}${PERSON.image}`,
+      sameAs: PERSON.sameAs,
+      knowsAbout: PERSON.knowsAbout,
+      workLocation: {
+        '@type': 'Place',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Williamsville',
+          addressRegion: 'NY',
+          addressCountry: 'US',
+        },
+      },
+      worksFor: { '@id': orgId },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: SITE.title,
+      description: SITE.description,
+      publisher: { '@id': orgId },
+      inLanguage: 'en-US',
+    },
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

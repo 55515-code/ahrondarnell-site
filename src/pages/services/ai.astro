@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicePage from '../../components/ServicePage.astro';
+---
+
+<ServicePage
+  slug="ai"
+  title="Secure AI Adoption"
+  subtitle="Use AI tools safely — without freezing or freewheeling"
+  intro="Every small business is being told to use AI. The real risk isn't using AI — it's unstructured adoption: employees feeding customer data into tools with no policy, no approval process, and no idea where the data goes. I help you adopt AI with clear policies, approved tool lists, and human review built in."
+  points={[
+    'AI adoption roadmap matched to your business',
+    'Secure AI usage policy — one page, readable, enforceable',
+    'Approved tool list with data-handling guidance',
+    'Shadow-AI discovery: what your team is already using',
+    'Training so staff know what\u2019s safe to share and what isn\u2019t',
+  ]}
+  faqs={[
+    {
+      q: 'What is the biggest AI risk for a small business?',
+      a: 'Shadow AI — employees using AI tools with no policy, feeding customer or business data into systems no one has reviewed. It\u2019s not dramatic; it\u2019s everyday, and it can create compliance and privacy exposure overnight.',
+    },
+    {
+      q: 'Can my business use AI and stay compliant?',
+      a: 'Yes. The key is structure: an approved tool list, clear rules about what data can be shared, human review of AI output, and staff training. Most businesses can be AI-forward and compliant at the same time.',
+    },
+    {
+      q: 'Do I need a long AI policy document?',
+      a: 'No. The best policy is one page: what tools are approved, what data is off-limits, who reviews output, and what to do if you\u2019re unsure. Long policies get ignored; short ones get followed.',
+    },
+    {
+      q: 'How do I know what AI tools my team is already using?',
+      a: 'A shadow-AI discovery review covers the practical ways to find out — interviewing staff, reviewing browser data and sign-in logs, and checking vendor/SSO activity. Once you know what\u2019s in use, you can decide what to approve, contain, or replace.',
+    },
+  ]}
+/>

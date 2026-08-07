@@ -1,0 +1,115 @@
+---
+/**
+ * Shared service page: intro, points, FAQ (with FAQPage JSON-LD), CTA.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../site.config';
+
+interface FAQ {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  slug: string;
+  title: string;
+  subtitle: string;
+  intro: string;
+  points: string[];
+  faqs: FAQ[];
+}
+
+const { slug, title, subtitle, intro, points, faqs } = Astro.props;
+const siteUrl = SITE.url.replace(/\/$/, '');
+const path = `/services/${slug}`;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={subtitle} canonical={path}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="section container">
+    <p class="eyebrow">service // {slug}</p>
+    <h1>{title}</h1>
+    <p class="lead">{subtitle}</p>
+    <p>{intro}</p>
+  </section>
+
+  <section class="section container section--tight">
+    <h2>What's included</h2>
+    <ul>
+      {points.map((p) => (
+        <li>{p}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section container section--tight">
+    <h2>Common questions</h2>
+    {
+      faqs.map((f) => (
+        <details class="faq" open={false}>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))
+    }
+  </section>
+
+  <section class="section container">
+    <div class="card">
+      <h2 style="margin-top: 0">Talk it through</h2>
+      <p>
+        A free 30-minute call to see whether {title} applies to you and what the
+        first step looks like.
+      </p>
+      <a class="btn btn--primary" href="/contact">book the call</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    margin-bottom: var(--sp-4);
+    padding: var(--sp-4);
+  }
+
+  .faq summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--green-bright);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sp-4);
+  }
+
+  .faq summary::after {
+    content: '+';
+    color: var(--text-muted);
+    font-size: 1.2rem;
+  }
+
+  .faq[open] summary::after {
+    content: '−';
+  }
+
+  .faq p {
+    margin-top: var(--sp-4);
+    margin-bottom: 0;
+  }
+</style>
