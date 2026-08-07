@@ -94,6 +94,6 @@ export const SERVICES = [
 
 export const ARTIST = {
   alias: 'Electrac Angel',
-  aliases: ['Ahron Darnell', 'ClownBlock', 'Bear Dove'],
+  aliases: ['Ahron Darnell', 'ClownBlack', 'Bear Dove'],
   essence: 'Electric, transformative, boundary-pushing digital art.',
 };
