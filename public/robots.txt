@@ -30,5 +30,5 @@ User-agent: anthropic-ai
 Allow: /
 
 # Feeds & AI map
-Sitemap: https://ahrondarnell.com/sitemap-index.xml
-Sitemap: https://ahrondarnell.com/sitemap-0.xml
+Sitemap: https://1pointo.com/sitemap-index.xml
+Sitemap: https://1pointo.com/sitemap-0.xml

@@ -112,7 +112,7 @@ const endpoint = CONTACT.formEndpoint;
         });
     } else {
       // Fallback: open the visitor's mail client with the message pre-filled
-      const mailto = `mailto:${'hello@ahrondarnell.com'}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
       status.textContent = 'Opening your mail app... if nothing happens, email me directly.';
     }

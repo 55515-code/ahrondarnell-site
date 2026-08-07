@@ -1,7 +1,7 @@
 // Central site configuration — single source of truth.
 // Change the domain here; canonical URLs, sitemap, schema, and feeds all derive from it.
 
-const DEFAULT_URL = 'https://ahrondarnell.com';
+const DEFAULT_URL = 'https://1pointo.com';
 const SITE_URL = process.env.SITE_URL || DEFAULT_URL;
 
 export const SITE = {
@@ -42,7 +42,7 @@ export const PERSON = {
 };
 
 export const CONTACT = {
-  email: 'hello@ahrondarnell.com', // swap once mailbox configured
+  email: 'hello@1pointo.com', // routed via Cloudflare Email Routing (catch-all -> ahronzombi@gmail.com)
   location: 'Williamsville / Buffalo, NY area',
   locationGeo: { latitude: 42.963, longitude: -78.739 },
   linkedin: 'https://www.linkedin.com/in/centralsupport/',
