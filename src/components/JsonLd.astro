@@ -3,11 +3,12 @@
  * Injects a JSON-LD structured-data block (Organization + Person + WebSite graph).
  * Site-wide schema with stable @id references.
  */
-import { SITE, PERSON, CONTACT } from '../site.config';
+import { BRAND, SITE, PERSON, CONTACT } from '../site.config';
 
 const siteUrl = SITE.url.replace(/\/$/, '');
-const orgId = `${siteUrl}/#organization`;
-const personId = `${siteUrl}/#person`;
+const orgId = `${siteUrl}/#org-1pointo`;
+const websiteId = `${siteUrl}/#website`;
+const personId = `${siteUrl}/#person-ahron-darnell`;
 
 const graph = {
   '@context': 'https://schema.org',
@@ -15,7 +16,8 @@ const graph = {
     {
       '@type': 'Organization',
       '@id': orgId,
-      name: SITE.name,
+      name: BRAND.name,
+      alternateName: SITE.name,
       url: siteUrl,
       description: SITE.description,
       foundingLocation: { '@type': 'Place', address: CONTACT.location },
@@ -53,9 +55,10 @@ const graph = {
     },
     {
       '@type': 'WebSite',
-      '@id': `${siteUrl}/#website`,
+      '@id': websiteId,
       url: siteUrl,
-      name: SITE.title,
+      name: `${BRAND.name} — ${SITE.name}`,
+      alternateName: SITE.title,
       description: SITE.description,
       publisher: { '@id': orgId },
       inLanguage: 'en-US',
@@ -64,4 +67,4 @@ const graph = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(graph)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Guides and notes from 1pointo — compliance, security, and platform operations for small businesses."
+  canonical="/blog"
+>
+  <section class="section container">
+    <p class="eyebrow">cat ~/posts</p>
+    <h1>Blog</h1>
+    <p class="lead">Guides and notes — each post ships as static HTML through the local substrate (queue → validate → approve → deploy). No auto-publish.</p>
+  </section>
+
+  <section class="section container section--tight">
+    {posts.length === 0 ? (
+      <div class="card"><p style="margin:0">No posts yet. Check back soon — or subscribe via <a href="/rss.xml">RSS</a>.</p></div>
+    ) : (
+      <div class="grid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id.replace(/\.md$/, '')}`} class="card card--accent" style="color: inherit; display:block; text-decoration:none">
+            <div class="card__meta">{post.data.pubDate.toISOString().slice(0,10)} · {post.data.tags.join(' · ') || 'note'}</div>
+            <div class="card__title">{post.data.title}</div>
+            <p style="margin-bottom:0">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

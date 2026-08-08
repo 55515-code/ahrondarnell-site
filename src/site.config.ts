@@ -4,10 +4,17 @@
 const DEFAULT_URL = 'https://1pointo.com';
 const SITE_URL = process.env.SITE_URL || DEFAULT_URL;
 
+export const BRAND = {
+  name: '1pointo',
+  domain: '1pointo.com',
+  tagline: 'One point of operations.',
+};
+
 export const SITE = {
-  // Set SITE_URL env var at build/deploy time to override (e.g. Cloudflare Pages previews)
   url: SITE_URL,
   name: 'Ahron Darnell',
+  brandName: BRAND.name,
+  domain: BRAND.domain,
   title: 'Ahron Darnell — Compliance, Security & Platform Operations',
   tagline: 'Making technology calmer, clearer, and more reliable for small businesses.',
   description:

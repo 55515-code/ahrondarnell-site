@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const siteUrl = (import.meta.env.SITE || 'https://1pointo.com').replace(/\/$/, '');
+const canonical = `/blog/${post.id.replace(/\.md$/, '')}`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  author: { '@type': 'Person', name: post.data.author },
+  publisher: { '@id': `${siteUrl}/#org-1pointo` },
+  mainEntityOfPage: `${siteUrl}${canonical}`,
+  keywords: post.data.tags.join(', '),
+};
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} canonical={canonical} ogType="article">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="section container">
+    <p class="eyebrow">{post.data.pubDate.toISOString().slice(0,10)} · {post.data.tags.join(' · ') || 'note'}</p>
+    <h1>{post.data.title}</h1>
+    <p class="lead">{post.data.description}</p>
+
+    <div class="card" style="margin-top: var(--sp-8)">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+
+    <div class="hero__actions">
+      <a class="btn" href="/blog">← back to blog</a>
+      <a class="btn" href="/rss.xml">rss</a>
+    </div>
+  </article>
+
+  <style>
+    .prose :global(h2) { margin-top: var(--sp-8); }
+    .prose :global(p) { color: var(--text); }
+    .prose :global(a) { color: var(--green-bright); }
+    .prose :global(pre) { overflow-x: auto; }
+    .prose :global(blockquote) {
+      border-left: 3px solid var(--green);
+      padding-left: var(--sp-4);
+      color: var(--text-muted);
+      margin: var(--sp-6) 0;
+    }
+  </style>
+</BaseLayout>

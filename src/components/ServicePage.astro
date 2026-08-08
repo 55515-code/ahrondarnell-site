@@ -3,7 +3,6 @@
  * Shared service page: intro, points, FAQ (with FAQPage JSON-LD), CTA.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../site.config';
 
 interface FAQ {
   q: string;
@@ -20,7 +19,6 @@ interface Props {
 }
 
 const { slug, title, subtitle, intro, points, faqs } = Astro.props;
-const siteUrl = SITE.url.replace(/\/$/, '');
 const path = `/services/${slug}`;
 
 const faqSchema = {
@@ -35,7 +33,7 @@ const faqSchema = {
 ---
 
 <BaseLayout title={title} description={subtitle} canonical={path}>
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <section class="section container">
     <p class="eyebrow">service // {slug}</p>

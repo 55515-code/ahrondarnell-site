@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const items = (await getCollection('updates', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout title="Updates" description="Changelog-style updates from 1pointo." canonical="/updates">
+  <section class="section container">
+    <p class="eyebrow">tail -f ~/updates</p>
+    <h1>Updates</h1>
+    <p class="lead">Short, dated updates — what shipped and why. Full guides live in <a href="/blog">/blog</a>.</p>
+  </section>
+  <section class="section container section--tight">
+    {items.length === 0 ? (
+      <div class="card"><p style="margin:0">No updates yet.</p></div>
+    ) : (
+      <div class="grid">
+        {items.map((u) => (
+          <div class="card">
+            <div class="card__meta">{u.data.pubDate.toISOString().slice(0,10)}</div>
+            <div class="card__title">{u.data.title}</div>
+            <p style="margin-bottom:0">{u.data.description}</p>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

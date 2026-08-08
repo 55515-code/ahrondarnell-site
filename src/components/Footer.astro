@@ -1,12 +1,12 @@
 ---
-import { SITE, NAV, CONTACT } from '../site.config';
+import { BRAND, SITE, NAV, CONTACT } from '../site.config';
 ---
 
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__grid">
       <div>
-        <h4>ahron@darnell:~$</h4>
+        <h4>{BRAND.name} · {BRAND.tagline}</h4>
         <p class="footer__blurb">
           {SITE.tagline} 20+ years across healthcare, banking, MSP, and enterprise
           environments. SOC 2, PCI DSS, and HIPAA guidance for small businesses.
@@ -42,7 +42,7 @@ import { SITE, NAV, CONTACT } from '../site.config';
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© {SITE.buildYear} {SITE.name}. All rights reserved.</span>
+      <span>© {SITE.buildYear} {BRAND.name} · {SITE.name}. All rights reserved.</span>
       <span>No cookies. No trackers. No nonsense.</span>
       <span>Built as a static site on the open web.</span>
     </div>

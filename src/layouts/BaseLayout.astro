@@ -3,11 +3,10 @@
  * Base layout: shared head (SEO, OG, Twitter, canonical, theme-color),
  * header, statusbar, main, footer. Site-wide JSON-LD included here.
  */
-import { SITE, CONTACT } from '../site.config';
+import { BRAND, SITE, PERSON, CONTACT } from '../site.config';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StatusBar from '../components/StatusBar.astro';
-import JsonLd from '../components/JsonLd.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -46,11 +45,9 @@ const fullTitle = title === SITE.title ? title : `${title} — ${SITE.name}`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:site_name" content={BRAND.name} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
@@ -68,7 +65,54 @@ const fullTitle = title === SITE.title ? title : `${title} — ${SITE.name}`;
     <!-- Performance -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'" />
 
-    <JsonLd />
+    {
+      (() => {
+        const siteUrl = SITE.url.replace(/\/$/, '');
+        const orgId = `${siteUrl}/#org-1pointo`;
+        const personId = `${siteUrl}/#person-ahron-darnell`;
+        const graph = {
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'Organization',
+              '@id': orgId,
+              name: BRAND.name,
+              alternateName: SITE.name,
+              url: siteUrl,
+              description: SITE.description,
+              address: { '@type': 'PostalAddress', addressLocality: 'Buffalo', addressRegion: 'NY', addressCountry: 'US' },
+              employee: { '@id': personId },
+              knowsAbout: PERSON.knowsAbout,
+              sameAs: PERSON.sameAs,
+            },
+            {
+              '@type': 'Person',
+              '@id': personId,
+              name: PERSON.name,
+              givenName: PERSON.givenName,
+              familyName: PERSON.familyName,
+              jobTitle: PERSON.jobTitle,
+              url: siteUrl,
+              image: `${siteUrl}${PERSON.image}`,
+              sameAs: PERSON.sameAs,
+              knowsAbout: PERSON.knowsAbout,
+              worksFor: { '@id': orgId },
+            },
+            {
+              '@type': 'WebSite',
+              '@id': `${siteUrl}/#website`,
+              url: siteUrl,
+              name: `${BRAND.name} — ${SITE.name}`,
+              alternateName: SITE.title,
+              description: SITE.description,
+              publisher: { '@id': orgId },
+              inLanguage: 'en-US',
+            },
+          ],
+        };
+        return <script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />;
+      })()
+    }
   </head>
   <body>
     <a class="visually-hidden" href="#main">Skip to content</a>

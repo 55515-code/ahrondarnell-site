@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT, SITE } from '../site.config';
 
 const endpoint = CONTACT.formEndpoint;
+const contactEmail = CONTACT.email;
 ---
 
 <BaseLayout
@@ -79,9 +80,9 @@ const endpoint = CONTACT.formEndpoint;
   </section>
 </BaseLayout>
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const status = document.getElementById('form-status') as HTMLElement | null;
+  <script is:inline define:vars={{ contactEmail }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
   const endpoint = form?.dataset.endpoint || '';
 
   form?.addEventListener('submit', (e) => {
@@ -93,7 +94,6 @@ const endpoint = CONTACT.formEndpoint;
     const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || 'n/a'}\n\n${data.get('message')}`;
 
     if (endpoint) {
-      // Configured form backend (Formspree/Basin/Netlify)
       fetch(endpoint, {
         method: 'POST',
         body: data,
@@ -111,8 +111,7 @@ const endpoint = CONTACT.formEndpoint;
           status.textContent = 'Network error. Please email me directly instead.';
         });
     } else {
-      // Fallback: open the visitor's mail client with the message pre-filled
-      const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailto;
       status.textContent = 'Opening your mail app... if nothing happens, email me directly.';
     }
