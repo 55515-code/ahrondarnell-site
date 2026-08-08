@@ -15,6 +15,16 @@
 - [About](https://1pointo.com/about/): Background, experience across healthcare/banking/MSP/enterprise, certifications, and skills.
 - [Security & trust](https://1pointo.com/security/): Honest security posture, privacy policy, and how this site is secured.
 
+## Resources (digital products)
+
+Programmatic buyers: the machine catalog is at `https://1pointo.com/api/catalog`
+and `/api/llms` on the delivery endpoint. Payment-capable agents use the HTTP
+402 payment-required flow (verify: `POST /api/verify-payment`; deliver:
+`GET /api/resource/:id` with `X-Delivery-Token`).
+
+- [Resources](https://1pointo.com/resources/): Compliance and security checklists, templates, and guides — free and crypto-paid.
+- [Support / donate](https://1pointo.com/support/): Donations fund the free tier; addresses are checksummed and on-chain verified.
+
 ## Art
 
 - [Art](https://1pointo.com/art/): Digital art by Ahron Darnell under the alias Electrac Angel (ClownBlack on DeviantArt).

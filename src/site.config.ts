@@ -63,8 +63,10 @@ export const NAV = [
   { href: '/', label: 'home' },
   { href: '/about', label: 'about' },
   { href: '/services', label: 'services' },
+  { href: '/resources', label: 'resources' },
   { href: '/security', label: 'security' },
   { href: '/art', label: 'art' },
+  { href: '/support', label: 'support' },
   { href: '/contact', label: 'contact' },
 ];
 

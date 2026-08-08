@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CATALOG } from '../data/resources';
+
+const freeResources = CATALOG.filter((r) => r.free);
+const paidResources = CATALOG.filter((r) => !r.free);
+const categories = [...new Set(CATALOG.map((r) => r.category))];
+---
+
+<BaseLayout
+  title="Resources"
+  description="Compliance and security templates, checklists, and guides for small businesses and AI agents. Free downloads plus crypto-paid deep-dive resources."
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">ls ./resources/</p>
+    <h1>Resources</h1>
+    <p class="lead">
+      Practical compliance and security artifacts — checklists, templates, and
+      guides that turn standards into actions. Human-readable, agent-readable,
+      and delivered through a verifiable payment flow.
+    </p>
+    <p class="note" style="margin-top: var(--sp-4)">
+      Payment: USDC/DAI on Polygon or Base → one-time delivery token → instant
+      download. Free resources need no payment. Programmatic buyers: see
+      <code>/api/llms</code> on the delivery endpoint for the machine catalog.
+    </p>
+  </section>
+
+  {
+    categories.map((category) => {
+      const items = CATALOG.filter((r) => r.category === category);
+      return (
+        <section class="section container">
+          <h2>{category}</h2>
+          <div class="grid grid--2">
+            {items.map((resource) => (
+              <div class:list={{ card: true, 'card--accent': resource.free }}>
+                <div class="card__meta">
+                  resource // {resource.id}
+                  {resource.free && <span> · free</span>}
+                </div>
+                <div class="card__title">{resource.title}</div>
+                <p>{resource.description}</p>
+                <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+                  <span class="prompt">$</span>{' '}
+                  {resource.free ? 'free' : `${resource.price_usdc} USDC`} · v
+                  {resource.version}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="section container">
+    <div class="card" style="margin-top: var(--sp-12)">
+      <h2 style="margin-top: 0">For AI agents and autonomous networks</h2>
+      <p>
+        These resources are intentionally machine-readable. The machine catalog
+        (<code>llms.txt</code>, <code>/api/llms</code>) lists every item with
+        price and delivery path; the delivery endpoint speaks the HTTP 402
+        payment-required pattern so payment-capable agents can purchase
+        directly with stablecoin microtransactions.
+      </p>
+      <p style="margin-bottom: 0">
+        <a class="btn btn--primary" href="/support">support the free tier</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <p class="note">
+      {freeResources.length} free · {paidResources.length} paid —{' '}
+      {CATALOG.length} total resources
+    </p>
+  </section>
+</BaseLayout>

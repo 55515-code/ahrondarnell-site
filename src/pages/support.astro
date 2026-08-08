@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { DONATIONS } from '../data/donations';
+import { CATALOG } from '../data/resources';
+
+const freeResources = CATALOG.filter((r) => r.free);
+const paidResources = CATALOG.filter((r) => !r.free);
+---
+
+<BaseLayout
+  title="Support"
+  description="Donate or download free compliance and security resources. Crypto donations accepted on Polygon and Base — every donation funds more free resources."
+  ogType="website"
+>
+  <section class="section container">
+    <p class="eyebrow">cat ./support/README</p>
+    <h1>Support</h1>
+    <p class="lead">
+      Every free resource here is funded by donations and paid downloads. If
+      this work helped you, a small contribution keeps the free tier running.
+      Donations are welcome — they never buy anything, they just keep the
+      lights on.
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2>Donate</h2>
+    <p>
+      Send USDC (or any supported token) on Polygon or Base. The address is
+      checksummed — verify it before sending. Donations are not purchases;
+      no goods or services are exchanged.
+    </p>
+    <div class="grid grid--2">
+      {
+        DONATIONS.map((network) => (
+          <div class="card">
+            <div class="card__meta">network // {network.network}</div>
+            <div class="card__title">{network.network}</div>
+            <ul style="list-style: none; margin: 0; padding: 0">
+              {
+                network.tokens.map((token) => (
+                  <li style="margin-top: var(--sp-4)">
+                    <span class="prompt">$</span> {token.symbol}
+                    <button
+                      class="btn btn--ghost copy-btn"
+                      data-address={token.address}
+                      aria-label={`Copy ${token.symbol} address on ${network.network}`}
+                    >
+                      copy address
+                    </button>
+                    <code style="display: block; margin-top: var(--sp-2); font-size: 0.75rem; overflow-wrap: anywhere">
+                      {token.address}
+                    </code>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+              <span class="prompt">$</span> check on explorer →
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="note" style="margin-top: var(--sp-6)">
+      Donations fund free resources and server costs. Everything is tracked in
+      the open payment runbook — see the security page for the trust model.
+    </p>
+  </section>
+
+  <section class="section container">
+    <h2>Free resources</h2>
+    <p>
+      No payment, no email wall — these are free to process and free to
+      download, for humans and for AI agents alike.
+    </p>
+    <div class="grid grid--2">
+      {
+        freeResources.map((resource) => (
+          <div class="card card--accent">
+            <div class="card__meta">resource // {resource.category} · free</div>
+            <div class="card__title">{resource.title}</div>
+            <p>{resource.description}</p>
+            <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+              <span class="prompt">$</span> available via the resources page →
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Paid resources</h2>
+    <p>
+      Deep-dive checklists, templates, and guides. Pay with crypto (USDC/DAI on
+      Polygon or Base) and download instantly with a one-time delivery link.
+    </p>
+    <div class="grid grid--2">
+      {
+        paidResources.map((resource) => (
+          <div class="card">
+            <div class="card__meta">resource // {resource.category}</div>
+            <div class="card__title">{resource.title}</div>
+            <p>{resource.description}</p>
+            <p class="card__more" style="margin-bottom: 0; margin-top: var(--sp-4)">
+              <span class="prompt">$</span> {resource.price_usdc} USDC →
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const address = button.dataset.address;
+      if (!address) return;
+      try {
+        await navigator.clipboard.writeText(address);
+        const original = button.textContent;
+        button.textContent = 'copied ✓';
+        setTimeout(() => {
+          button.textContent = original;
+        }, 2000);
+      } catch {
+        button.textContent = 'copy failed';
+      }
+    });
+  });
+</script>
+
+<style>
+  .btn--ghost {
+    margin-left: var(--sp-3);
+    padding: 0.15rem 0.5rem;
+    font-size: 0.72rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--green-bright);
+    cursor: pointer;
+  }
+  .btn--ghost:hover {
+    background: var(--green-glow-soft);
+  }
+  .note {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
