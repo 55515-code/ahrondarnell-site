@@ -49,7 +49,7 @@ export const PERSON = {
 };
 
 export const CONTACT = {
-  email: 'hello@1pointo.com', // routed via Cloudflare Email Routing (catch-all -> ahronzombi@gmail.com)
+  email: 'hello@1pointo.com', // routed via Cloudflare Email Routing catch-all
   location: 'Williamsville / Buffalo, NY area',
   locationGeo: { latitude: 42.963, longitude: -78.739 },
   linkedin: 'https://www.linkedin.com/in/centralsupport/',
